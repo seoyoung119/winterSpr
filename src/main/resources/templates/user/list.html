@@ -24,8 +24,7 @@
                 cache: false,
                 success: (obj_data, status, xhr)=>{
                     alert(JSON.stringify(obj_data));
-                    /*
-                    */
+
                     $("#div_user_list").html("");
                     let userList = obj_data;
                     for(let each of userList){
