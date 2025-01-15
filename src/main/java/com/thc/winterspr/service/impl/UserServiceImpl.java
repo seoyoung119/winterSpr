@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long create(Map<String, Object> params) {
-
         String username = (String) params.get("username");
         User tempUser = userRepository.findByUsername(username);
         if(tempUser != null){

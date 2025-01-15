@@ -18,4 +18,5 @@ public class User {
     @Setter String name;
     @Setter String nick;
     @Setter String phone;
+
 }

@@ -44,12 +44,6 @@
                 cache: false,
                 success: (obj_data, status, xhr)=>{
                     alert(JSON.stringify(obj_data));
-                    /*$("#detail_user_username").val(obj_data["username"]);
-                    $("#detail_user_name").val(obj_data["name"]);
-                    $("#detail_user_nick").val(obj_data["nick"]);
-                    $("#detail_user_phone").val(obj_data["phone"]);*/
-
-                    //let arrayKey = ["username", "name", "nick", "phone"];
                     let arrayKey = Object.keys(obj_data);
                     for(let each of arrayKey){
                         $("#detail_user_" + each).val(obj_data[each]);
@@ -65,10 +59,6 @@
             let _param = {
                 id : $("#detail_user_id").val()
             };
-            /*_param["username"] = $("#detail_user_username").val();
-            _param["name"] = $("#detail_user_name").val();
-            _param["nick"] = $("#detail_user_nick").val();
-            _param["phone"] = $("#detail_user_phone").val();*/
 
             let arrayKey = ["username", "name", "nick", "phone"];
             for(let each of arrayKey){

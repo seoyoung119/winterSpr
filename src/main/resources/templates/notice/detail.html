@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DETAIL</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+<div>
+  DETAIL
+
+  id :
+  <input type="text" id="detail_notice_id" />
+  title :
+  <input type="text" id="detail_notice_title" />
+  content :
+  <input type="text" id="detail_notice_content" />
+
+  <button onclick="detail_notice()">DETAIL</button>
+  <button onclick="update_notice()">UPDATE</button>
+  <button onclick="delete_notice()">DELETE</button>
+
+  <script>
+    function detail_notice(){
+      let id = $("#detail_post_id").val();
+
+      $.ajax({
+        url: "/api/notice/detail",
+        type: "GET",
+        data: {
+          id : id
+        },
+        cache: false,
+        success: (obj_data, status, xhr)=>{
+          alert(JSON.stringify(obj_data));
+          $("#detail_notice_id").val(obj_data["id"]);
+          $("#detail_notice_title").val(obj_data["title"]);
+          $("#detail_notice_content").val(obj_data["content"]);
+        },
+        error: (obj_data, status, xhr)=>{
+          alert("error!!");
+          alert(JSON.stringify(obj_data));
+        }
+      });
+    }
+    function update_notice(){
+      let id = $("#detail_notice_id").val();
+      let title = $("#detail_notice_title").val();
+      let content = $("#detail_notice_content").val();
+
+      $.ajax({
+        url: "/api/notice/update",
+        type: "GET",
+        data: {
+          id : id
+          , title : title
+          , content : content
+        },
+        cache: false,
+        success: (obj_data, status, xhr)=>{
+          alert(JSON.stringify(obj_data));
+        },
+        error: (obj_data, status, xhr)=>{
+          alert("error!!");
+          alert(JSON.stringify(obj_data));
+        }
+      });
+    }
+    function delete_post(){
+      let id = $("#detail_notice_id").val();
+
+      $.ajax({
+        url: "/api/notice/delete",
+        type: "GET",
+        data: {
+          id : id
+        },
+        cache: false,
+        success: (obj_data, status, xhr)=>{
+          alert(JSON.stringify(obj_data));
+        },
+        error: (obj_data, status, xhr)=>{
+          alert("error!!");
+          alert(JSON.stringify(obj_data));
+        }
+      });
+    }
+  </script>
+
+
+</div>
+</body>
+</html>
