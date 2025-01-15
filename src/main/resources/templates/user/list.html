@@ -7,44 +7,42 @@
 </head>
 <body>
 <div>
-    list
+    <h3>List</h3>
     <button onclick="list_user()">LIST</button>
 
     <div id="div_user_list"></div>
 
     <script>
-        function list_user(){
-            let _param = {};
-
+        function list_user() {
             $.ajax({
-                url: "/api/user/list",
+                url: "/api/user/list", // API 엔드포인트 확인 필요
                 type: "GET",
-                contentType : 'application/json; charset=utf-8',
-                data: _param,
+                contentType: 'application/json; charset=utf-8',
                 cache: false,
-                success: (obj_data, status, xhr)=>{
-                    alert(JSON.stringify(obj_data));
+                success: (obj_data, status, xhr) => {
+                    // 서버에서 올바른 응답이 반환되는지 확인하기 위해 디버깅 로그 추가
+                    console.log("Success Response:", obj_data);
 
-                    $("#div_user_list").html("");
-                    let userList = obj_data;
-                    for(let each of userList){
-                        let username = each["username"];
-                        let id = each["id"];
-                        $("#div_user_list").append(
-                            "<div><a href='/user/detail/"+id+"'>"+id + "||" + username +"</a></div>"
-                        );
-                        /*"<div><a href='/user/detail/"+each['id']+"'>"+each['id'] +"//" + each["username"] +"</a></div>"*/
+                    if (!Array.isArray(obj_data)) {
+                        alert("Unexpected response format. Please check the server.");
+                        return;
                     }
+
+                    $("#div_user_list").empty(); // 이전 리스트를 지움
+                    obj_data.forEach(user => {
+                        let { username, id } = user;
+                        $("#div_user_list").append(
+                            `<div><a href='/user/detail/${id}'>${id} || ${username}</a></div>`
+                        );
+                    });
                 },
-                error: (obj_data, status, xhr)=>{
-                    alert("error!!");
-                    alert(JSON.stringify(obj_data));
+                error: (xhr, status, error) => {
+                    console.error("Error Response:", xhr.responseText);
+                    alert("Error occurred while fetching the user list.");
                 }
             });
         }
     </script>
-
-
 </div>
 </body>
 </html>
